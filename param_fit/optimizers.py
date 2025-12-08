@@ -40,3 +40,6 @@ def LBFGS_OPTIMIZE(tree, inputs, targets, max_iter = 50, tol_grad = 1e-7, tol_ch
     lbfgs.step(closure)
 
 
+def Reward(tree, inputs, targets):
+    mse = MSE(tree,inputs, targets)
+    return 1/(1+mse)

@@ -9,7 +9,7 @@ This first section will be on testing computing MSE of the tree. Feel free to co
 other components
 '''
 
-
+'''
 #First create some leaf nodes
 leaf1 = Node.newLeaf(UNARY_OP["id"], torch.tensor([1.0, 2.0]), LEAF)
 leaf2 = Node.newLeaf(UNARY_OP["id"], torch.tensor([0.5, -1.0]), LEAF)
@@ -96,11 +96,11 @@ targets_exact = targets_exact.to(DEVICE)
 mse_value = MSE(tree, inputs, targets_exact)
 print("Test 3: MSE:", mse_value.item())
 '''
-
+'''
 
 This next section tests out the ADAM and LBFGS optimizers of the tree. Feel free to comment out if testing other components
 '''
-
+'''
 torch.set_default_dtype(torch.float64)
 
 root = Node.newNode(UNARY_OP["id"], ROOT)
@@ -193,5 +193,5 @@ print(mid.children[2].coeffs)
 #notice the optimizers are architecture dependent, and you might get better results utilizing CUDA cores
 #than on cpu
 
-
+'''
 

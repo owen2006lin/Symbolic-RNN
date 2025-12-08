@@ -3,10 +3,7 @@ from .ops import *
 import torch
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-
-
-torch.set_default_dtype(torch.float32)
-
+'''
 def build_default_tree():
     root = Node.newNode(UNARY_OP["id"], ROOT)
     binary = Node.newNode(BINARY_OP["add"], BINARY)
@@ -32,3 +29,4 @@ print(eval_tree(basictree, input))
 print(basictree.to_sequence())
 basictree.ordered_print()
 print(basictree.to_str())
+'''

@@ -180,3 +180,13 @@ def eval_tree(tree, x):
     return eval_node(tree.root,x)
 
 
+def level_order_nodes(node):
+    nodes = []
+    q = deque([node])
+
+    while q:
+        node = q.popleft()
+        nodes.append(node)
+        for child in node.children:
+            q.append(child)
+    return nodes
