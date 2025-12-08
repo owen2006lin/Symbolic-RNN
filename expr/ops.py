@@ -1,9 +1,16 @@
 import torch
 
+def id(x) : return x
+def neg(x) : return -x
+def add(a,b): return a+b
+def sub(a,b): return a-b
+def mul(a,b): return a*b
+def div(a,b): return a/b
+
 
 UNARY_OP = {
-    "id" : lambda x : x,
-    "neg" : lambda x : -x,
+    "id" : id,
+    "neg" : neg,
     "abs" : torch.abs,
     "exp" : torch.exp,
     "sin" : torch.sin,
@@ -11,8 +18,21 @@ UNARY_OP = {
 }
 
 BINARY_OP = {
-    "add" : lambda a, b : a + b,
-    "sub" : lambda a, b : a - b,
-    "mul" : lambda a, b : a * b,
-    "div" : lambda a, b : a / b,
+    "add" : add,
+    "sub" : sub,
+    "mul" : mul,
+    "div" : div,
+}
+
+OP_SYMBOLS = {
+    "add": "+",
+    "sub": "-",
+    "mul": "*",
+    "div": "/",
+    "neg": "-",
+    "id": "",
+    "abs": "abs",
+    "exp": "exp",
+    "sin": "sin",
+    "cos": "cos",
 }

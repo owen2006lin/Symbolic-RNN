@@ -1,6 +1,9 @@
 from .tree import *
 from .ops import *
 import torch
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+
 
 torch.set_default_dtype(torch.float32)
 
@@ -23,5 +26,9 @@ def build_default_tree():
 
 
 basictree = build_default_tree()
-input = torch.tensor([1], dtype = torch.float32)
+input = torch.tensor([1], dtype = torch.float32, device = DEVICE)
 print(eval_tree(basictree, input))
+
+print(basictree.to_sequence())
+basictree.ordered_print()
+print(basictree.to_str())
