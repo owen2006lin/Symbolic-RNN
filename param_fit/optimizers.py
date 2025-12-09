@@ -6,12 +6,16 @@ from expr.tree import *
 #Let targets be the proper y values, and the inputs be the vectors input into the tree
 #to ouput these values. Remember that the tree maps R^n -> R meaning we need multiple vectors
 #so inputs expects to have shape (num_samples, n)
+
+
 def MSE(tree, inputs, targets):
     n = targets.shape[0]
     preds = torch.empty(n).to(DEVICE)
     for i in range(n):
         preds[i] = eval_tree(tree, inputs[i])
     mse = torch.mean((preds - targets) ** 2)
+    if not torch.isfinite(mse):
+        raise RuntimeError(f"Non-finite MSE: {mse.item()}")
     return mse
 
 
@@ -40,6 +44,10 @@ def LBFGS_OPTIMIZE(tree, inputs, targets, max_iter = 50, tol_grad = 1e-7, tol_ch
     lbfgs.step(closure)
 
 
+
 def Reward(tree, inputs, targets):
     mse = MSE(tree,inputs, targets)
-    return 1/(1+mse)
+    rmse = torch.sqrt(mse)
+    denom = (targets.max() - targets.min())
+    nrmse = rmse / denom
+    return 1/(1+nrmse)

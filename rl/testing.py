@@ -24,9 +24,6 @@ mid.add_child(leaf3)
 
 tree = ExpressionTree(root)
 
-
-
-
 max_nodes = 5
 policy = TreePolicy(max_nodes = max_nodes, rl_vocab_size= RL_VOCAB_SIZE).to(DEVICE)
 root, log_prob = sample_ops_for_tree(policy, root, RL_OPS, UNARY_MASK, BINARY_MASK, device = DEVICE)
