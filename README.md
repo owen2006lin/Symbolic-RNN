@@ -7,7 +7,7 @@ This repository aims to develop a symbolic regression framework that:
 - incorporates those priors into a tree-structured RNN controller,
 - and enhances symbolic regression via reinforcement learning guided by priors.
 
-The reference paper introduces a hierarchical tree representation of mathematical expressions, systematic extraction of symbol priors across scientific domains (physics / biology / chemistry / engineering), and integration of these priors through KL regularization and constraints into an RNN policy for generating symbolic expressions. :contentReference[oaicite:2]{index=2}
+The reference paper introduces a hierarchical tree representation of mathematical expressions, systematic extraction of symbol priors across scientific domains (physics / biology / chemistry / engineering), and integration of these priors through KL regularization and constraints into an RNN policy for generating symbolic expressions.
 
 ---
 
@@ -25,7 +25,7 @@ The reference paper introduces a hierarchical tree representation of mathematica
 ### 🟢 Short Term — Q1 2026
 **Foundations + Prior Extraction**
 - Finalize scripts to scrape and parse arXiv papers for symbolic expressions
-- Build tree representation utilities for expression structures
+- Build tree representation utilities for expression structures✅
 - Produce normalized symbol frequency distributions (horizontal & vertical priors)
 - Prototype basic data pipelines for prior corpora
 
