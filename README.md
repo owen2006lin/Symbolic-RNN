@@ -22,21 +22,21 @@ The reference paper introduces a hierarchical tree representation of mathematica
 
 ## 📈 Roadmap
 
-### 🟢 Short Term — Q1 2026
+### 🟢 Short Term — Feb-Mar 2026
 **Foundations + Prior Extraction**
 - Finalize scripts to scrape and parse arXiv papers for symbolic expressions
 - Build tree representation utilities for expression structures✅
 - Produce normalized symbol frequency distributions (horizontal & vertical priors)
 - Prototype basic data pipelines for prior corpora
 
-### 🟡 Medium Term — Q2 2026
+### 🟡 Medium Term — Mar-April 2026
 **ML Framework & Integration**
 - Implement tree-structured RNN controller modules
 - Integrate priors as soft (KL) & hard constraints into generation policy
 - Start training pipelines (reinforcement learning + policy gradients)
 - Establish basic evaluation benchmarks vs random / baseline symbolic regression
 
-### 🔵 Long Term —   Q2–Q3 2026
+### 🔵 Long Term —   May 2026
 **Optimization, Tools & Workflows**
 - Optimize training, scheduling of KL influence & symbolic block incorporation
 - Add CI / GitHub Actions to automate tests & experiments
