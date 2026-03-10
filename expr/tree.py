@@ -18,12 +18,13 @@ BINARY = nodeType.BINARY
 LEAF = nodeType.LEAF
 
 class Node(nn.Module):
-    def __init__(self, func = None, coeffs = None, weight = 1, bias = 0, arity = None):
+    def __init__(self, func = None, coeffs = None, weight = 1, bias = 0, arity = None, name = None):
         super().__init__()
         self.op = func
         self.children = []
         self.arity = arity
         #For leaves : coefficients
+        self.name = name
         self.coeffs = nn.Parameter(coeffs if coeffs is not None else torch.ones(1))
         self.weight = nn.Parameter(torch.tensor(float(weight)))
         self.bias   = nn.Parameter(torch.tensor(float(bias)))
@@ -44,36 +45,29 @@ class Node(nn.Module):
         return cls(func = func, coeffs = coeffs, weight = 1, bias = 0, arity = arity)
     def add_child(self, node : "Node"):
         self.children.append(node)
+
+    @classmethod
+    def symbolicLeaf(cls, name):
+        return cls(func = None, coeffs = torch.ones(1), weight = 1, bias = 0, arity = LEAF, name = name)
     
-
 def node_to_str(node):
-    # Leaf node
     if node.arity == LEAF:
-        name = None
-        for n, f in {**UNARY_OP, **BINARY_OP}.items():
-            if f == node.op:
-                name = n
-                break
-        if name is None:
-            name = getattr(node.op, "__name__", "x")
-        if name == "id":
-            return "x"
-        else:
-            return f"{name}(x)"
+        return node.name if getattr(node, "name", None) is not None else "leaf"
 
-    # Unary or root node (non-leaf)
     elif node.arity in [UNARY, ROOT]:
         child_str = node_to_str(node.children[0])
+        op_name = getattr(node.op, "__name__", str(node.op)) if node.op is not None else "?"
+        expr = f"{op_name}({child_str})"
+
         w = node.weight.item() if hasattr(node, "weight") else 1
         b = node.bias.item() if hasattr(node, "bias") else 0
-        expr = child_str
+
         if w != 1:
             expr = f"{w}*({expr})"
         if b != 0:
             expr = f"{expr} + {b}"
         return expr
 
-    # Binary node with any number of children
     elif node.arity == BINARY:
         symbol = None
         for n, f in BINARY_OP.items():
@@ -81,10 +75,9 @@ def node_to_str(node):
                 symbol = OP_SYMBOLS.get(n, n)
                 break
         if symbol is None:
-            symbol = "?"
+            symbol = getattr(node.op, "__name__", "?")
         children_strs = [node_to_str(c) for c in node.children]
         return "(" + f" {symbol} ".join(children_strs) + ")"
-
 
 def ordered_print(node, prefix="", is_last=True):
     # Determine which branch symbol to use
@@ -115,7 +108,7 @@ def move_node_to_device(node, device):
     if node.arity == LEAF:
         node.coeffs = nn.Parameter(node.coeffs.to(device))
     if node.arity == UNARY:
-        node.weight = nn.Parammeter(node.weight.to(device))
+        node.weight = nn.Parameter(node.weight.to(device))
         node.bias = nn.Parameter(node.bias.to(device))
 
     # Move children

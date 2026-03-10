@@ -36,7 +36,7 @@ def sample_and_eval_tree(policy, inputs, targets, T1, T2, device):
     )
     try:
         ADAM_OPTIMIZE(tree, inputs, targets, T1)
-        LBFGS_OPTIMIZE(tree, inputs, targets, T2)
+        #LBFGS_OPTIMIZE(tree, inputs, targets, T2)
         with torch.no_grad():
             reward = Reward(tree, inputs, targets)
             reward = torch.tensor(float(reward), device = device)

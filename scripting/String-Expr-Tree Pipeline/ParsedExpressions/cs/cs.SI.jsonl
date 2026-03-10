@@ -1,0 +1,1 @@
+{"arxiv_id": "1403.6652", "cited_by_count": 8332, "arxiv_primary_category": "cs.SI", "raw_latex": "\\begin{equation}\nPP = \\frac{1}{\\sqrt[n]{P(W_1^n)}}\n\\end{equation}", "cleaned_latex": "\\frac{1}{\\sqrt[n]{P(W_1^n)}}", "sympy_str": "1/(P(W_{1}**n)**(1/n))"}
